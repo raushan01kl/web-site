@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Дневник благодарности</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0fff0;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        textarea, button {
+            width: 100%;
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            background: #4caf50;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #388e3c;
+        }
+        .gratitude-list {
+            margin-top: 20px;
+        }
+        .gratitude {
+            background: #d0f0c0;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Дневник благодарности</h1>
+        <textarea id="gratitudeInput" placeholder="Напишите, за что вы благодарны..."></textarea>
+        <button onclick="addGratitude()">Добавить благодарность</button>
+        <div class="gratitude-list" id="gratitudeList"></div>
+    </div>
+
+    <script>
+        function addGratitude() {
+            const gratitudeText = document.getElementById('gratitudeInput').value;
+            if (!gratitudeText.trim()) return;
+
+            const gratitudeList = document.getElementById('gratitudeList');
+            const gratitudeItem = document.createElement('div');
+            gratitudeItem.classList.add('gratitude');
+            gratitudeItem.textContent = gratitudeText;
+
+            gratitudeList.appendChild(gratitudeItem);
+            document.getElementById('gratitudeInput').value = '';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Дневник желаний</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #fff0f5;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        textarea, button {
+            width: 100%;
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            background: #ff69b4;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #e0558e;
+        }
+        .wish-list {
+            margin-top: 20px;
+        }
+        .wish {
+            background: #ffe0e9;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Дневник желаний</h1>
+        <textarea id="wishInput" placeholder="Напишите своё желание..."></textarea>
+        <button onclick="addWish()">Добавить желание</button>
+        <div class="wish-list" id="wishList"></div>
+    </div>
+
+    <script>
+        function addWish() {
+            const wishText = document.getElementById('wishInput').value;
+            if (!wishText.trim()) return;
+
+            const wishList = document.getElementById('wishList');
+            const wishItem = document.createElement('div');
+            wishItem.classList.add('wish');
+            wishItem.textContent = wishText;
+
+            wishList.appendChild(wishItem);
+            document.getElementById('wishInput').value = '';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Доска заметок</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f9f9f9;
+            overflow: hidden;
+        }
+        .board {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            background: #fdf6e3;
+            border: 1px solid #eee;
+            overflow: hidden;
+        }
+        .note {
+            position: absolute;
+            background: #ffeb3b;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            cursor: grab;
+            min-width: 150px;
+            min-height: 100px;
+        }
+        .note:active {
+            cursor: grabbing;
+        }
+        .note textarea {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: transparent;
+            resize: none;
+            font-family: inherit;
+            font-size: 14px;
+            outline: none;
+        }
+        .add-note {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: #ff69b4;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .add-note:hover {
+            background: #e0558e;
+        }
+    </style>
+</head>
+<body>
+    <div class="board" id="board"></div>
+    <button class="add-note" onclick="addNote()">Добавить заметку</button>
+
+    <script>
+        const board = document.getElementById('board');
+
+        function addNote() {
+            const note = document.createElement('div');
+            note.className = 'note';
+            note.contentEditable = false;
+            note.innerHTML = '<textarea placeholder="Введите текст заметки..."></textarea>';
+            note.style.top = `${Math.random() * (window.innerHeight - 150)}px`;
+            note.style.left = `${Math.random() * (window.innerWidth - 200)}px`;
+            
+            note.addEventListener('mousedown', startDrag);
+            board.appendChild(note);
+        }
+
+        let draggedNote = null;
+        let offsetX, offsetY;
+
+        function startDrag(e) {
+            if (e.target.tagName === 'TEXTAREA') return; // Игнорируем, если кликаем на текст
+
+            draggedNote = e.currentTarget;
+            offsetX = e.clientX - draggedNote.offsetLeft;
+            offsetY = e.clientY - draggedNote.offsetTop;
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('mouseup', stopDrag);
+        }
+
+        function drag(e) {
+            if (!draggedNote) return;
+            draggedNote.style.left = `${e.clientX - offsetX}px`;
+            draggedNote.style.top = `${e.clientY - offsetY}px`;
+        }
+
+        function stopDrag() {
+            draggedNote = null;
+            document.removeEventListener('mousemove', drag);
+            document.removeEventListener('mouseup', stopDrag);
+        }
+    </script>
+</body>
+</html>
